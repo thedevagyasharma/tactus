@@ -1,0 +1,109 @@
+.sounds {
+  margin-bottom: 4rem;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem 0;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.875rem 1.25rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: border-color 0.15s;
+}
+
+.item:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.itemLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+/* Play button */
+.playBtn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+
+.playBtn:hover {
+  background: rgba(255, 64, 0, 0.2);
+  border-color: #ff4000;
+  color: #ff4000;
+}
+
+.playBtn.playing {
+  background: rgba(255, 64, 0, 0.25);
+  border-color: #ff4000;
+  color: #ff4000;
+}
+
+.itemLabel {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.itemFile {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.35);
+  font-family: 'Geist Mono', monospace;
+}
+
+/* Download button */
+.downloadBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.3rem 0.7rem;
+  border-radius: 3px;
+  transition: color 0.15s, border-color 0.15s;
+  flex-shrink: 0;
+}
+
+.downloadBtn:hover {
+  color: #ff4000;
+  border-color: #ff4000;
+}
+
+@media (max-width: 768px) {
+  .item {
+    padding: 0.75rem 1rem;
+  }
+
+  .itemFile {
+    display: none;
+  }
+}

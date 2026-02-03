@@ -1,0 +1,69 @@
+.pushButtonWrapper {
+    --radius: 12px;
+    --size: 1;
+    position: relative;
+    width: calc(76px * var(--size));
+    height: calc(76px * var(--size));
+    border: calc(2px * var(--size)) solid rgba(255 255 255 / 0.1);
+    border-radius: calc((var(--radius) + 5px) * var(--size));
+    background-color: black;
+    transition: background-color 0.1s linear;
+    isolation: isolate;
+    z-index: 0;
+}
+
+.pushButtonWrapper.enabled {
+    background-color: #ff4000;
+    border: calc(2px * var(--size)) solid rgba(255 255 255 / 0.2);
+}
+
+.pushButtonShadow{
+    width: calc(64px * var(--size));
+    height: calc(64px * var(--size));
+    inset: calc(4px * var(--size));
+    border-radius: calc(var(--radius) * var(--size));
+    position: absolute;
+    background-color: rgba(255 255 255 / 0.8);
+    z-index: -1;
+    transition: all 0.1s linear;
+}
+
+.pushButtonWrapper.enabled .pushButtonShadow{
+    background-color: #ffb899;
+}
+
+.pushButton {
+    width: calc(64px * var(--size));
+    height: calc(64px * var(--size));
+    inset: calc(4px * var(--size));
+    position: absolute;
+    background-color: white;
+    border-radius: calc(var(--radius) * var(--size));
+    transform: translateY(calc(-12px * var(--size)));
+    transition: all 0.1s linear;
+    will-change: transform;
+    cursor: pointer;
+    z-index: 0;
+}
+
+.pushButton.pressed {
+    transform: translateY(0);
+}
+
+.pushButton.enabled {
+    background-color: #ffe5d9;
+    border: 1px solid #ffb899;
+}
+
+.pushButton.enabled:not(.pressed) {
+    transform: translateY(calc(-4px * var(--size)));
+}
+
+.pushButton:focus {
+    outline: none;
+}
+
+.pushButtonWrapper:has(.pushButton:focus-visible) {
+    outline: 2px solid rgba(255 255 255 / 0.5);
+    border: 2px solid black;
+}

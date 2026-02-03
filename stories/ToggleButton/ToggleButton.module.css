@@ -1,0 +1,74 @@
+.toggleButtonWrapper {
+    --size: 1;
+    background-color: black;
+    padding: calc(4px * var(--size));
+    border-radius: calc(22px * var(--size));
+    border: calc(2px * var(--size)) solid rgba(255 255 255 / 0.1);
+    cursor: pointer;
+}
+
+.toggleButtonWrapper:focus{
+    outline: none;
+}
+
+.toggleButtonWrapper:focus-visible{
+    outline: 2px solid rgba(255 255 255 / 0.5);
+}
+
+
+.toggleButtonTrack {
+    position: relative;
+    width: calc(64px * var(--size));
+    height: calc(32px * var(--size));
+    overflow: hidden;
+    background-color: black;
+    border-radius: calc(16px * var(--size));
+    box-shadow:
+        inset 0px 0px 0px 1px rgba(0, 0, 0, 0.02),
+        inset 0px 1px 2px -1px rgba(0, 0, 0, 0.02),
+        inset 0px 2px 4px 0px rgba(0, 0, 0, 0.01);
+}
+
+.toggleButtonHandle {
+    position: absolute;
+    height: calc(28px * var(--size));
+    width: calc(28px * var(--size));
+    border-radius: 50%;
+    background-color: #ff4000;
+    inset: calc(2px * var(--size));
+    box-shadow:
+        0px 0px 0px 1px rgba(255, 64, 0, 0.12),
+        1px 0px 2px -1px rgba(255, 64, 0, 0.12),
+        2px 0px 4px 0px rgba(255, 64, 0, 0.08);
+    transition: left 0.3s cubic-bezier(1,0,.75,1);
+}
+
+.toggleButtonWrapper.active .toggleButtonHandle {
+    left: calc(100% - calc(28px * var(--size)) - calc(2px * var(--size)));
+}
+
+.orangeLine {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    transition: left 0.3s cubic-bezier(1,0,.75,1);
+    background-color: #ffe5d9;
+    left: 0;
+    height: calc(32px * var(--size));
+    transform-origin: right center;
+    border-radius: calc(19px * var(--size));
+    box-shadow:
+        inset 0px 0px 0px 1px rgba(255, 64, 0, 0.12),
+        inset 0px 1px 2px -1px rgba(255, 64, 0, 0.12),
+        inset 0px 2px 4px 0px rgba(255, 64, 0, 0.08);
+}
+
+/* When inactive - lines start from left */
+.toggleButtonWrapper:not(.active) .orangeLine {
+    left: calc(-32px * var(--size)); /* track width minus handle center */
+}
+/* When active - lines move right with handle */
+.toggleButtonWrapper.active .orangeLine {
+    left: 0px;
+}

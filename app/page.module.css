@@ -1,0 +1,271 @@
+.page {
+  min-height: 100vh;
+}
+
+/* Hero Section - Interactive Playground */
+.hero {
+  padding: 5rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.heroContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.heroText {
+  text-align: left;
+}
+
+.heroTitle {
+  font-size: 3.5rem;
+  font-weight: 900;
+  line-height: 1.1;
+  margin: 0 0 1.5rem 0;
+  color: #ff4000;
+  letter-spacing: -0.02em;
+}
+
+.heroDescription {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  max-width: 500px;
+}
+
+.heroDemo {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Scope Container */
+.scopeContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding: 60px 60px 3rem 3rem;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.powerIndicator {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  transform: scale(0.5);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+.controlGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.controlLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Manifesto */
+.manifesto {
+  padding: 5rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.manifestoText {
+  font-size: 1.75rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: left;
+  margin: 0;
+}
+
+.manifestoHighlight {
+  color: #ff4000;
+}
+
+/* Components Section */
+.componentsSection {
+  padding: 5rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0 0 3rem 0;
+  color: #ff4000;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+/* About Section */
+.aboutSection {
+  padding: 5rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.aboutContent {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+
+.aboutColumn {
+  text-align: left;
+}
+
+.aboutTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0 0 1rem 0;
+  color: #ff4000;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.aboutText {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 5rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.footerContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.footerLink {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footerLink:hover {
+  color: #ff4000;
+}
+
+.footerDivider {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.875rem;
+}
+
+.footerYear {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .hero {
+    padding: 4rem 1.5rem;
+  }
+
+  .heroContent {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .heroText {
+    text-align: center;
+  }
+
+  .heroTitle {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .heroDescription {
+    font-size: 0.9rem;
+    margin: 0 auto;
+  }
+
+  .heroDemo {
+    justify-content: center;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .manifesto {
+    padding: 4rem 1.5rem;
+  }
+
+  .manifestoText {
+    font-size: 1.25rem;
+  }
+
+  .componentsSection,
+  .aboutSection,
+  .footer {
+    padding: 4rem 1.5rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .aboutContent {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .footerContent {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footerDivider {
+    display: none;
+  }
+}
