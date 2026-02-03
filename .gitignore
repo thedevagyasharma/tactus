@@ -49,3 +49,4 @@ nul
 # local dev artifacts
 .claude/
 .playwright-mcp/
+.storybook/
