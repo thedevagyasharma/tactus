@@ -132,8 +132,8 @@ export const RadialSlider = ({ minVal = 0, maxVal = 100, stepSize = 10, initVal 
             const deltaY = dragStartRef.current.y - e.clientY;
             const delta = deltaX + deltaY;
 
-            const sensitivity = 1;
-            const deltaValue = delta / sensitivity;
+            const pixelsPerFullRange = 150;
+            const deltaValue = (delta / pixelsPerFullRange) * (maxVal - minVal);
             const newValue = dragStartRef.current.value + deltaValue;
 
             const steppedVal = minVal + Math.round((newValue - minVal) / stepSize) * stepSize;
@@ -180,7 +180,6 @@ export const RadialSlider = ({ minVal = 0, maxVal = 100, stepSize = 10, initVal 
                                 x2={x2}
                                 y2={y2}
                                 className={isActive ? styles.activeTick : ''}
-                                filter="url(#tickGlow)"
                             />
                         );
                     })}
