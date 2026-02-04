@@ -31,11 +31,11 @@
     width: 100%;
     background-color: rgba(0 0 0 / 0.1);
     top: 47%;
-    transition: top 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .lightSwitchWrapper.active .switchLine {
-    top: 52%;
+    transform: translateY(calc(7.2px * var(--size)));
 }
 
 .switchIndicator {
@@ -54,38 +54,51 @@
     bottom: calc(25% - calc(12px * var(--size)));
 }
 
-@property --top-opacity {
-    syntax: '<number>';
-    inherits: false;
-    initial-value: 1;
-}
-
-@property --bottom-opacity {
-    syntax: '<number>';
-    inherits: false;
-    initial-value: 0.2;
-}
-
 .lightSwitch {
     position: absolute;
     top: 0;
     height: calc(128px * var(--size));
     width: calc(64px * var(--size));
-    --top-opacity: 0.3;
-    --bottom-opacity: 1;
-    background:
-        linear-gradient(to bottom, rgba(255 255 255 / var(--top-opacity)), rgba(255 255 255 / var(--bottom-opacity)));
     border-radius: calc(14px * var(--size));
-    transition: all 0.3s ease, --top-opacity 0.3s ease, --bottom-opacity 0.3s ease;
+    overflow: hidden;
+    transition: top 0.3s ease, box-shadow 0.3s ease;
     box-shadow:
-        0px calc(2px * var(--size)) calc(12px * var(--size)) calc(-4px * var(--size)) rgba(0 0 0 / 0.05),
-        inset 0px 0px calc(1px * var(--size)) 0px rgba(0 0 0 / 0.3);
+        0px calc(2px * var(--size)) calc(12px * var(--size)) calc(-4px * var(--size)) rgba(0 0 0 / 0.05);
+}
+
+/* "off" gradient — fades out when active; carries the inset shadow for the off state */
+.lightSwitch::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: calc(14px * var(--size));
+    background: linear-gradient(to bottom, rgba(255 255 255 / 0.3), rgba(255 255 255 / 1));
+    box-shadow: inset 0px 0px calc(1px * var(--size)) 0px rgba(0 0 0 / 0.3);
+    transition: opacity 0.3s ease;
+}
+
+.lightSwitchWrapper.active .lightSwitch::before {
+    opacity: 0;
+}
+
+/* "on" gradient — fades in on top when active; carries the inset shadow */
+.lightSwitch::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: calc(14px * var(--size));
+    background: linear-gradient(to bottom, rgba(255 255 255 / 1), rgba(255 255 255 / 0.3));
+    box-shadow: inset 0px 0px calc(1px * var(--size)) 0px rgba(0 0 0 / 0.3);
+    opacity: 0;
+    transition: opacity 0.3s ease, box-shadow 0.3s ease;
 }
 
 .lightSwitchWrapper.active .lightSwitch {
     top: calc(100% - calc(128px * var(--size)));
-    --top-opacity: 1;
-    --bottom-opacity: 0.3;
-    box-shadow: 0px calc(-1px * var(--size)) calc(1px * var(--size)) calc(1px * var(--size)) rgba(255 255 255 / 0.2),
-        inset 0px calc(1px * var(--size)) 0px 0px rgba(0 0 0 / 0.05);
+    box-shadow: 0px calc(-1px * var(--size)) calc(1px * var(--size)) calc(1px * var(--size)) rgba(255 255 255 / 0.2);
+}
+
+.lightSwitchWrapper.active .lightSwitch::after {
+    opacity: 1;
+    box-shadow: inset 0px calc(1px * var(--size)) 0px 0px rgba(0 0 0 / 0.05);
 }
