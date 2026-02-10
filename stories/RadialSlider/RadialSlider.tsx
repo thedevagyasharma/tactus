@@ -22,7 +22,7 @@ export const RadialSlider = ({ minVal = 0, maxVal = 100, stepSize = 10, initVal 
 
     const [value, setValue] = useState(initVal);
     const [isDragging, setIsDragging] = useState(false);
-    const dragStartRef = useRef({ x: 0, y: 0, value: 0 });
+    const dragStartRef = useRef({ x: 0, y: 0, value: 0, touchId: null as number | null });
 
     const prevValueRef = useRef(value);
     const audioPoolRef = useRef<HTMLAudioElement[]>([]);
@@ -98,6 +98,14 @@ export const RadialSlider = ({ minVal = 0, maxVal = 100, stepSize = 10, initVal 
         return (ratio * 270);
     }, [value, minVal, maxVal]);
 
+    // Helper to extract pointer position from mouse or touch events
+    function getPointerPosition(e: MouseEvent | TouchEvent): { x: number; y: number } {
+        if ('touches' in e && e.touches.length > 0) {
+            return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        }
+        return { x: (e as MouseEvent).clientX, y: (e as MouseEvent).clientY };
+    }
+
     function handleKeyDown(e: React.KeyboardEvent) {
         if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
             e.preventDefault();
@@ -127,9 +135,17 @@ export const RadialSlider = ({ minVal = 0, maxVal = 100, stepSize = 10, initVal 
     useEffect(() => {
         if (!isDragging) return;
         document.body.style.cursor = 'grabbing';
-        function handleMouseMove(e: MouseEvent) {
-            const deltaX = e.clientX - dragStartRef.current.x;
-            const deltaY = dragStartRef.current.y - e.clientY;
+
+        function handlePointerMove(e: MouseEvent | TouchEvent) {
+            // For touch events, only track the original touch
+            if ('touches' in e) {
+                const touch = Array.from(e.touches).find(t => t.identifier === dragStartRef.current.touchId);
+                if (!touch) return;
+            }
+
+            const { x, y } = getPointerPosition(e);
+            const deltaX = x - dragStartRef.current.x;
+            const deltaY = dragStartRef.current.y - y;
             const delta = deltaX + deltaY;
 
             const pixelsPerFullRange = 150;
@@ -142,22 +158,53 @@ export const RadialSlider = ({ minVal = 0, maxVal = 100, stepSize = 10, initVal 
             setValue(finalVal);
         }
 
-        function handleMouseUp() {
+        function handlePointerUp(e: MouseEvent | TouchEvent) {
+            // For touch events, only end drag if the original touch ended
+            if ('changedTouches' in e) {
+                const touch = Array.from(e.changedTouches).find(t => t.identifier === dragStartRef.current.touchId);
+                if (!touch) return;
+            }
+
             document.body.style.cursor = '';
+            dragStartRef.current.touchId = null;
             setIsDragging(false);
         }
 
-        window.addEventListener('mousemove', handleMouseMove);
-        window.addEventListener('mouseup', handleMouseUp);
+        // Add both mouse and touch listeners
+        window.addEventListener('mousemove', handlePointerMove as EventListener);
+        window.addEventListener('mouseup', handlePointerUp as EventListener);
+        window.addEventListener('touchmove', handlePointerMove as EventListener, { passive: false });
+        window.addEventListener('touchend', handlePointerUp as EventListener);
+        window.addEventListener('touchcancel', handlePointerUp as EventListener);
 
         return () => {
-            window.removeEventListener('mousemove', handleMouseMove);
-            window.removeEventListener('mouseup', handleMouseUp);
+            window.removeEventListener('mousemove', handlePointerMove as EventListener);
+            window.removeEventListener('mouseup', handlePointerUp as EventListener);
+            window.removeEventListener('touchmove', handlePointerMove as EventListener);
+            window.removeEventListener('touchend', handlePointerUp as EventListener);
+            window.removeEventListener('touchcancel', handlePointerUp as EventListener);
         }
     }, [isDragging, minVal, maxVal, stepSize])
 
-    function handleMouseDown(e: React.MouseEvent) {
-        dragStartRef.current = { x: e.clientX, y: e.clientY, value: value };
+    function handlePointerStart(e: React.MouseEvent | React.TouchEvent) {
+        // Prevent default to stop scrolling on touch devices
+        if ('touches' in e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            dragStartRef.current = {
+                x: touch.clientX,
+                y: touch.clientY,
+                value: value,
+                touchId: touch.identifier
+            };
+        } else {
+            dragStartRef.current = {
+                x: e.clientX,
+                y: e.clientY,
+                value: value,
+                touchId: null
+            };
+        }
         setIsDragging(true);
     }
 
@@ -183,7 +230,10 @@ export const RadialSlider = ({ minVal = 0, maxVal = 100, stepSize = 10, initVal 
                             />
                         );
                     })}
-                    <circle cx={svgDim / 2} cy={svgDim / 2} r={svgDim / 4} onMouseDown={handleMouseDown} className={styles.knob}
+                    <circle cx={svgDim / 2} cy={svgDim / 2} r={svgDim / 4}
+                        onMouseDown={handlePointerStart}
+                        onTouchStart={handlePointerStart}
+                        className={styles.knob}
                         tabIndex={0}
                         onKeyDown={handleKeyDown}
                         role="slider"
