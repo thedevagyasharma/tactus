@@ -3,11 +3,12 @@ import { useState } from 'react';
 import styles from './PushButton.module.css';
 
 export interface PushButtonProps {
+    label?: string;
     onChange?: (value: number) => void;
     size?: number;
 }
 
-export const PushButton = ({ onChange, size = 1 }: PushButtonProps) => {
+export const PushButton = ({ label = 'Push button', onChange, size = 1 }: PushButtonProps) => {
     const [isEnabled, setIsEnabled] = useState(false);
     const [isPressed, setIsPressed] = useState(false);
     const [isReleasing, setIsReleasing] = useState(false);
@@ -76,6 +77,8 @@ export const PushButton = ({ onChange, size = 1 }: PushButtonProps) => {
                 style={{ '--size': size } as React.CSSProperties}>
                 <button
                     className={`${styles.pushButton} ${isPressed ? styles.pressed : ''} ${isEnabled ? styles.enabled : ''}`}
+                    aria-label={label}
+                    aria-pressed={isEnabled}
                     onMouseDown={handleMouseDown}
                     onMouseUp={handleMouseUp}
                     onKeyDown={handleKeyDown}

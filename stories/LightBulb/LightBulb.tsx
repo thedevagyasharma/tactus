@@ -19,7 +19,7 @@ export const LightBulb = ({ value }: LightBulbProps) => {
     }, [value]);
 
     return (
-        <div className={styles.lightBulbWrapper}>
+        <div className={styles.lightBulbWrapper} aria-hidden="true">
             <div ref={lightBulbRef} className={styles.lightBulb}></div>
             <div className={styles.pattern}></div>
         </div>

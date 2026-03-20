@@ -77,7 +77,7 @@ function PlaygroundInner({ component, controls }: { component: ComponentMetadata
 
       <div className={styles.layout}>
         <div className={styles.preview}>
-          <Suspense fallback={<div className={styles.loading}>Loading...</div>}>
+          <Suspense fallback={<div role="status" aria-live="polite" className={styles.loading}>Loading...</div>}>
             <Component key={mountKey} {...liveProps} />
           </Suspense>
         </div>
@@ -86,10 +86,11 @@ function PlaygroundInner({ component, controls }: { component: ComponentMetadata
           <div className={styles.controls}>
             {controls.map(ctrl => (
               <div key={ctrl.name} className={styles.controlRow}>
-                <label className={styles.controlLabel}>{ctrl.label}</label>
+                <label htmlFor={ctrl.name} className={styles.controlLabel}>{ctrl.label}</label>
                 {ctrl.type === 'range' ? (
                   <div className={styles.rangeRow}>
                     <input
+                      id={ctrl.name}
                       type="range"
                       className={styles.rangeInput}
                       min={ctrl.min}
@@ -102,6 +103,8 @@ function PlaygroundInner({ component, controls }: { component: ComponentMetadata
                   </div>
                 ) : (
                   <button
+                    id={ctrl.name}
+                    aria-pressed={!!values[ctrl.name]}
                     className={`${styles.toggleBtn} ${values[ctrl.name] ? styles.toggleOn : ''}`}
                     onClick={() => handleChange(ctrl.name, !values[ctrl.name])}
                   >
