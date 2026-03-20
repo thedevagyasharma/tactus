@@ -43,11 +43,14 @@ function SoundItem({ label, path }: { label: string; path: string }) {
 
   return (
     <div className={styles.item}>
+      <span role="status" aria-live="polite" className={styles.srOnly}>
+        {isPlaying ? `Playing ${label}` : ''}
+      </span>
       <div className={styles.itemLeft}>
         <button
           className={`${styles.playBtn} ${isPlaying ? styles.playing : ''}`}
           onClick={handlePlay}
-          aria-label={`Play ${label}`}
+          aria-label={isPlaying ? `Pause ${label}` : `Play ${label}`}
         >
           {isPlaying ? (
             <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">

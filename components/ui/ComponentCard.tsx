@@ -21,12 +21,12 @@ export function ComponentCard({ component }: ComponentCardProps) {
       </div>
 
       <div className={styles.preview}>
-        <Suspense fallback={<div className={styles.previewLoading}>Loading...</div>}>
+        <Suspense fallback={<div role="status" aria-live="polite" className={styles.previewLoading}>Loading...</div>}>
           <Component />
         </Suspense>
       </div>
 
-      <Link href={`/components/${component.id}`} className={styles.button}>
+      <Link href={`/components/${component.id}`} className={styles.button} aria-label={`See more about ${component.name}`}>
         See More
       </Link>
     </div>

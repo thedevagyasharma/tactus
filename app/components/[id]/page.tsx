@@ -48,8 +48,8 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
     <div className={styles.page}>
       <div className={styles.container}>
         <header className={styles.header}>
-          <Link href="/" className={styles.backLink}>
-            ← Back
+          <Link href="/" className={styles.backLink} aria-label="Back to home">
+            <span aria-hidden="true">←</span> Back
           </Link>
           <h1 className={styles.title}>{component.name}</h1>
           {component.hasSound && (
@@ -61,7 +61,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
         <section className={styles.demoSection}>
           <div className={styles.demo}>
             <Suspense fallback={
-              <div className={styles.loading}>Loading...</div>
+              <div role="status" aria-live="polite" className={styles.loading}>Loading...</div>
             }>
               <Component />
             </Suspense>
