@@ -28,6 +28,7 @@
     display: block;
     touch-action: none;
 }
+
 .radialSlider svg {
     width: 100%;
     height: auto;
@@ -60,4 +61,12 @@
 .ticks line.activeTick,
 line.pointer {
     stroke: #ff4000;
+}
+
+.sliderLabel {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 }

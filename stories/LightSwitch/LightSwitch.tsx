@@ -10,7 +10,7 @@ export interface LightSwitchProps {
     size?: number;
 }
 
-export const LightSwitch = ({ label = 'Toggle', initialState = false, onChange, size = 1 }: LightSwitchProps) => {
+export const LightSwitch = ({ label = 'Light Switch', initialState = false, onChange, size = 1 }: LightSwitchProps) => {
     const [state, setState] = useState(initialState);
     const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -35,19 +35,20 @@ export const LightSwitch = ({ label = 'Toggle', initialState = false, onChange, 
 
     return (
         <>
-            <div
-                onClick={handleClick}
-                onKeyDown={handleKeyDown}
-                role="switch"
-                aria-checked={state}
-                aria-label={label}
-                tabIndex={0}
-                style={{ '--size': size } as React.CSSProperties}
-                className={`${styles.lightSwitchWrapper} ${state ? styles.active : ''}`}>
-                <div className={`${styles.lightSwitch}`}
-                ></div>
-                <div className={styles.switchLine}></div>
-                <div className={styles.switchIndicator}></div>
+            <div className={styles.lightSwitchWithLabel}>
+                <button
+                    onClick={handleClick}
+                    role="switch"
+                    aria-checked={state}
+                    aria-label={label}
+                    style={{ '--size': size } as React.CSSProperties}
+                    className={`${styles.lightSwitchWrapper} ${state ? styles.active : ''}`}>
+                    <div className={`${styles.lightSwitch}`}
+                    ></div>
+                    <div className={styles.switchLine}></div>
+                    <div className={styles.switchIndicator}></div>
+                </button>
+                <div className={styles.lightSwitchLabel}>{label}</div>
             </div>
             <audio ref={audioRef} preload="auto" />
         </>

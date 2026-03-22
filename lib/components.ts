@@ -2,13 +2,13 @@ import { lazy, ComponentType } from 'react';
 
 export type ComponentCategory = 'physical-controls' | 'animated-components';
 
-export type PropControlType = 'range' | 'toggle';
+export type PropControlType = 'range' | 'toggle' | 'text';
 
 export interface PropControl {
   name: string;
   label: string;
   type: PropControlType;
-  defaultValue: number | boolean;
+  defaultValue: number | boolean | string;
   // for type: 'range'
   min?: number;
   max?: number;
@@ -48,6 +48,7 @@ export const COMPONENTS: ComponentMetadata[] = [
     createdDate: '2026-01-26',
     featured: true,
     playgroundProps: [
+      { name: 'label', label: 'Label', type: 'text', defaultValue: 'Radial Slider' },
       { name: 'minVal', label: 'Min Value', type: 'range', defaultValue: 0, min: -180, max: 0, step: 10 },
       { name: 'maxVal', label: 'Max Value', type: 'range', defaultValue: 100, min: 10, max: 360, step: 10 },
       { name: 'stepSize', label: 'Step Size', type: 'range', defaultValue: 10, min: 1, max: 50, step: 1 },
@@ -68,6 +69,7 @@ export const COMPONENTS: ComponentMetadata[] = [
     createdDate: '2026-01-26',
     featured: true,
     playgroundProps: [
+      { name: 'label', label: 'Label', type: 'text', defaultValue: 'Push button' },
       { name: 'size', label: 'Size', type: 'range', defaultValue: 1, min: 0.5, max: 2, step: 0.1 },
     ],
     sounds: [
@@ -86,6 +88,7 @@ export const COMPONENTS: ComponentMetadata[] = [
     createdDate: '2026-01-26',
     featured: true,
     playgroundProps: [
+      { name: 'label', label: 'Label', type: 'text', defaultValue: 'Toggle' },
       { name: 'size', label: 'Size', type: 'range', defaultValue: 1, min: 0.5, max: 2, step: 0.1 },
     ],
     sounds: [
@@ -104,6 +107,7 @@ export const COMPONENTS: ComponentMetadata[] = [
     createdDate: '2026-01-26',
     featured: true,
     playgroundProps: [
+      { name: 'label', label: 'Label', type: 'text', defaultValue: 'Light Switch' },
       { name: 'size', label: 'Size', type: 'range', defaultValue: 1, min: 0.5, max: 2, step: 0.1 },
       { name: 'initialState', label: 'Initial State', type: 'toggle', defaultValue: false },
     ],
@@ -121,8 +125,9 @@ export const COMPONENTS: ComponentMetadata[] = [
     description: 'An animated light bulb component with glowing effect. Perfect for visual feedback and status indicators.',
     component: lazy(() => import('@/stories/LightBulb/LightBulb').then(m => ({ default: m.LightBulb }))),
     createdDate: '2026-01-26',
-    featured: false,
+    featured: true,
     playgroundProps: [
+      { name: 'label', label: 'Label', type: 'text', defaultValue: 'Light Bulb' },
       { name: 'value', label: 'Brightness', type: 'range', defaultValue: 1, min: 0, max: 1, step: 0.01 },
     ],
   },

@@ -34,20 +34,22 @@ export const ToggleButton = ({ label = 'Toggle', onChange, size = 1 }: ToggleBut
 
     return (
         <>
-            <div className={`${styles.toggleButtonWrapper} ${state ? styles.active : ''}`}
-                onClick={handleClick}
-                onKeyDown={handleKeyDown}
-                role="switch"
-                aria-checked={state}
-                aria-label={label}
-                tabIndex={0}
-                style={{ '--size': size } as React.CSSProperties}
-            >
-                <div className={styles.toggleButtonTrack}>
-                    <div className={styles.orangeLine}></div>
-                    {/* <div className={styles.blackLine}></div> */}
-                    <div className={styles.toggleButtonHandle}></div>
-                </div>
+            <div className={styles.toggleButtonWithLabel}>
+                <button className={`${styles.toggleButtonWrapper} ${state ? styles.active : ''}`}
+                    onClick={handleClick}
+                    role="switch"
+                    aria-checked={state}
+                    aria-label={label}
+                    tabIndex={0}
+                    style={{ '--size': size } as React.CSSProperties}
+                >
+                    <div className={styles.toggleButtonTrack}>
+                        <div className={styles.orangeLine}></div>
+                        {/* <div className={styles.blackLine}></div> */}
+                        <div className={styles.toggleButtonHandle}></div>
+                    </div>
+                </button>
+                <div className={styles.toggleButtonLabel}>{label}</div>
             </div>
             <audio ref={audioRef} preload="auto" />
         </>

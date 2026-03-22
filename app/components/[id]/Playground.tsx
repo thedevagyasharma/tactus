@@ -24,15 +24,15 @@ export function Playground({ component }: PlaygroundProps) {
 function PlaygroundInner({ component, controls }: { component: ComponentMetadata; controls: PropControl[] }) {
   const Component = component.component;
 
-  const [values, setValues] = useState<Record<string, number | boolean>>(() => {
-    const initial: Record<string, number | boolean> = {};
+  const [values, setValues] = useState<Record<string, number | boolean | string>>(() => {
+    const initial: Record<string, number | boolean | string> = {};
     for (const ctrl of controls) {
       initial[ctrl.name] = ctrl.defaultValue;
     }
     return initial;
   });
 
-  function handleChange(name: string, value: number | boolean) {
+  function handleChange(name: string, value: number | boolean | string) {
     setValues(prev => ({ ...prev, [name]: value }));
   }
 
@@ -44,7 +44,7 @@ function PlaygroundInner({ component, controls }: { component: ComponentMetadata
 
   // Build the props object to pass to the component
   const liveProps = useMemo(() => {
-    const props: Record<string, number | boolean> = {};
+    const props: Record<string, number | boolean | string> = {};
     for (const ctrl of controls) {
       props[ctrl.name] = values[ctrl.name];
     }
@@ -58,6 +58,9 @@ function PlaygroundInner({ component, controls }: { component: ComponentMetadata
       const val = values[ctrl.name];
       if (typeof val === 'boolean') {
         return val ? `  ${ctrl.name}` : `  ${ctrl.name}={false}`;
+      }
+      if (typeof val === 'string') {
+        return `  ${ctrl.name}="${val}"`;
       }
       return `  ${ctrl.name}={${val}}`;
     });
@@ -101,6 +104,14 @@ function PlaygroundInner({ component, controls }: { component: ComponentMetadata
                     />
                     <span className={styles.rangeValue}>{values[ctrl.name] as number}</span>
                   </div>
+                ) : ctrl.type === 'text' ? (
+                  <input
+                    id={ctrl.name}
+                    type="text"
+                    className={styles.textInput}
+                    value={values[ctrl.name] as string}
+                    onChange={e => handleChange(ctrl.name, e.target.value)}
+                  />
                 ) : (
                   <button
                     id={ctrl.name}

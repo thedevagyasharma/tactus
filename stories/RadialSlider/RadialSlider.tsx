@@ -9,6 +9,7 @@ interface RadialSliderProps {
     stepSize?: number;
     initVal?: number;
     onChange?: (value: number) => void;
+    label?: string;
 }
 
 type Tick = {
@@ -18,7 +19,7 @@ type Tick = {
 }
 
 
-export const RadialSlider = ({ minVal = 0, maxVal = 100, stepSize = 10, initVal = 0, onChange }: RadialSliderProps) => {
+export const RadialSlider = ({ minVal = 0, maxVal = 100, stepSize = 10, initVal = 0, onChange, label="Radial Slider" }: RadialSliderProps) => {
 
     const [value, setValue] = useState(initVal);
     const [isDragging, setIsDragging] = useState(false);
@@ -240,7 +241,7 @@ export const RadialSlider = ({ minVal = 0, maxVal = 100, stepSize = 10, initVal 
                         aria-valuemin={minVal}
                         aria-valuemax={maxVal}
                         aria-valuenow={value}
-                        aria-label="Radial Slider"
+                        aria-label={label}
                     />
                     <line
                         x1={svgDim / 2 + svgDim / 8}
@@ -255,6 +256,7 @@ export const RadialSlider = ({ minVal = 0, maxVal = 100, stepSize = 10, initVal 
             <div className={styles.sliderValue}>
                 {value}
             </div>
+            <div className={styles.sliderLabel}>{label}</div>
         </div>
     )
 }

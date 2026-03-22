@@ -223,13 +223,13 @@ export const Oscilloscope = () => {
                     maxVal={180}
                     stepSize={10}
                     initVal={0}
+                    label={'Phase'}
                     onChange={(normalizedValue) => {
                       const phaseValue = (normalizedValue * 360) - 180;
                       setPhase(phaseValue);
                     }}
                   />
                 </div>
-                <span className={styles.controlLabel}>Phase</span>
               </div>
 
               <div className={styles.controlGroup}>
@@ -239,13 +239,13 @@ export const Oscilloscope = () => {
                     maxVal={110}
                     stepSize={10}
                     initVal={10}
+                    label={'Frequency'}
                     onChange={(normalizedValue) => {
                       const freqValue = Math.round(1 + normalizedValue * 10);
                       setFrequency(freqValue);
                     }}
                   />
                 </div>
-                <span className={styles.controlLabel}>Frequency</span>
               </div>
             </div>
           </div>
@@ -265,13 +265,12 @@ export const Oscilloscope = () => {
                     onChange={(value) => setIsPowerOn(value === 1)}
                   />
                 </div>
-                <span className={styles.controlLabel}>Power</span>
               </div>
             </div>
 
             <div className={styles.amplitudeControls}>
               <div className={styles.controlGroup}>
-                <span className={styles.controlLabel}>Gain</span>
+                {/* <span className={styles.controlLabel}>Gain</span> */}
                 <div className={styles.controlWrapper}>
                   <ToggleButton
                     label="Gain"
@@ -282,10 +281,9 @@ export const Oscilloscope = () => {
               </div>
 
               <div className={styles.controlGroup}>
-                <span className={styles.controlLabel}>Schmitt</span>
                 <div className={styles.controlWrapper}>
                   <PushButton
-                    onChange={(value) => setIsSquareWave(value === 1)} size={isNarrow ? 0.75 : 1}
+                    onChange={(value) => setIsSquareWave(value === 1)} size={isNarrow ? 0.75 : 1} label="Schmitt"
                   />
                 </div>
               </div>
