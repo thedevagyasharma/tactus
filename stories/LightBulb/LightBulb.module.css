@@ -1,3 +1,11 @@
+.lightBulbWithLabel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+}
+
 .lightBulbWrapper {
     position: relative;
     height: 64px;
@@ -48,4 +56,12 @@
             rgba(0 0 0 / 0.15),
             rgba(0 0 0 / 0.05) 4px,
             rgba(0 0 0 / 0.0) 8px);
+}
+
+.lightBulbLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }

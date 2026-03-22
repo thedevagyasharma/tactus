@@ -107,6 +107,24 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* Text input for string props */
+.textInput {
+  width: 100%;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.8rem;
+  font-family: inherit;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.85);
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.textInput:focus {
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
 /* Toggle button for boolean props */
 .toggleBtn {
   align-self: flex-start;

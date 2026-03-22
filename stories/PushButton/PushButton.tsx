@@ -3,7 +3,7 @@ import { useState } from 'react';
 import styles from './PushButton.module.css';
 
 export interface PushButtonProps {
-    label?: string;
+    label: string;
     onChange?: (value: number) => void;
     size?: number;
 }
@@ -72,22 +72,28 @@ export const PushButton = ({ label = 'Push button', onChange, size = 1 }: PushBu
 
     return (
         <>
-            <div
-                className={`${styles.pushButtonWrapper} ${isEnabled ? styles.enabled : ''}`}
-                style={{ '--size': size } as React.CSSProperties}>
-                <button
-                    className={`${styles.pushButton} ${isPressed ? styles.pressed : ''} ${isEnabled ? styles.enabled : ''}`}
-                    aria-label={label}
-                    aria-pressed={isEnabled}
-                    onMouseDown={handleMouseDown}
-                    onMouseUp={handleMouseUp}
-                    onKeyDown={handleKeyDown}
-                    onKeyUp={handleKeyUp}
-                    onMouseLeave={handleMouseUp}
-                >
-                </button>
-                <div className={styles.pushButtonShadow}></div>
+            <div className={styles.pushButtonWithLabel}>
+                <div
+                    className={`${styles.pushButtonWrapper} ${isEnabled ? styles.enabled : ''}`}
+                    style={{ '--size': size } as React.CSSProperties}>
+                    <button
+                        className={`${styles.pushButton} ${isPressed ? styles.pressed : ''} ${isEnabled ? styles.enabled : ''}`}
+                        onMouseDown={handleMouseDown}
+                        onMouseUp={handleMouseUp}
+                        onKeyDown={handleKeyDown}
+                        onKeyUp={handleKeyUp}
+                        onMouseLeave={handleMouseUp}
+                        role="switch"
+                        aria-label={label}
+                        aria-pressed={isPressed}
+                        aria-checked={isEnabled}
+                    >
+                    </button>
+                    <div className={styles.pushButtonShadow}></div>
+                </div>
+                <div className={styles.pushButtonLabel}>{label}</div>
             </div>
+            
         </>
     )
 };
